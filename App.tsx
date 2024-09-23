@@ -1,24 +1,35 @@
-import React from 'react'
-import { StyleSheet, View, Text, TextInput } from 'react-native' 
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-const App = (): React.JSX.Element => {
+const Stack = createStackNavigator();
+
+import 'react-native-gesture-handler';
+
+import Home from './src/pages/Home';
+import MessageList from './src/pages/MessagesList';
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Apple Message App Clone</Text>
-      </View>
-  )
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Filters"
+          component={Home}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="list"
+          component={MessageList}
+          options={{
+            title: '',
+            headerStyle: {backgroundColor: '#fff'},
+            headerTintColor: '#000',
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 20,
-    color: 'blue',
-  },
-});
 
 export default App;
