@@ -2,6 +2,10 @@ import React from 'react';
 import {Image, FlatList, StyleSheet, View, Text} from 'react-native';
 import IconButton from './IconButton';
 
+const ItemSeparator = () => {
+  return <View style={styles.separator} />;
+};
+
 const Section = ({navigation, data}: any) => {
   return (
     <FlatList
@@ -32,6 +36,7 @@ const Section = ({navigation, data}: any) => {
           </View>
         </View>
       )}
+      ItemSeparatorComponent={ItemSeparator}
     />
   );
 };
@@ -82,6 +87,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  separator: {
+    height: 1,
+    backgroundColor: '#ccc',
+    width: '90%',
+    marginLeft: 45
+},
 });
 
 export default Section;
