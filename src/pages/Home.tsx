@@ -64,6 +64,7 @@ const Home = ({navigation}: any) => {
     },
     {
       id: 5,
+      key: "promotions",
       name: 'Promotions',
       count: 6,
       icon: 'https://img.icons8.com/ios/100/commercial--v1.png',

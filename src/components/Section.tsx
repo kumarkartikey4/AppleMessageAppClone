@@ -1,5 +1,11 @@
 import React from 'react';
-import {Image, FlatList, StyleSheet, View, Text} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import IconButton from './IconButton';
 
 const ItemSeparator = () => {
@@ -8,36 +14,38 @@ const ItemSeparator = () => {
 
 const Section = ({navigation, data}: any) => {
   return (
-    <FlatList
-      style={styles.container}
-      data={data}
-      renderItem={({item}) => (
-        <View style={styles.box}>
-          <View style={styles.boxItemLeft}>
-            <Image
-              source={{uri: item.icon}}
-              style={{
-                marginRight: 10,
-                width: 20,
-                height: 20,
-                marginHorizontal: 2,
-              }}
-            />
-            <Text style={{fontSize: 14}}>{item.name}</Text>
-          </View>
-          <View style={styles.boxItemRight}>
-            <Text style={{marginRight: 5}}>{item.count}</Text>
-            <IconButton
-              title=""
-              iconUrl="https://img.icons8.com/ios/50/forward--v1.png"
-              onPress={() =>
-                navigation.navigate('list', {key: item.key})
-              }></IconButton>
-          </View>
-        </View>
-      )}
-      ItemSeparatorComponent={ItemSeparator}
-    />
+    <View style={styles.container}>
+      {
+        data.map((item: any) => (
+          <TouchableOpacity key={item.key}
+            onPress={() => navigation.navigate('list', {key: item.key})}>
+            <View style={styles.box}>
+              <View style={styles.boxItemLeft}>
+                <Image
+                  source={{uri: item.icon}}
+                  style={{
+                    marginRight: 10,
+                    width: 20,
+                    height: 20,
+                    marginHorizontal: 2,
+                  }}
+                />
+                <Text style={{fontSize: 14}}>{item.name}</Text>
+              </View>
+              <View style={styles.boxItemRight}>
+                <Text style={{marginRight: 5}}>{item.count}</Text>
+                <IconButton
+                  title=""
+                  iconUrl="https://img.icons8.com/ios/50/forward--v1.png"
+                  onPress={() =>
+                    navigation.navigate('list', {key: item.key})
+                  }></IconButton>
+              </View>
+            </View>
+          </TouchableOpacity>
+        ))
+      }
+    </View>
   );
 };
 
@@ -47,7 +55,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 15,
     shadowColor: 'black',
-    shadowOpacity: 0.3,
+    // shadowOpacity: 0.3,
   },
   box: {
     margin: 1,
@@ -91,8 +99,8 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#ccc',
     width: '90%',
-    marginLeft: 45
-},
+    marginLeft: 45,
+  },
 });
 
 export default Section;
