@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, FlatList, StyleSheet, Image} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import moment from 'moment';
 
 import data from '../data/Messages';
@@ -52,8 +59,8 @@ const formatTimestamp = (timestamp: any) => {
 const sorted = (data: any) => {
   return data.sort((a: any, b: any) => {
     return moment(b.timestamp).diff(moment(a.timestamp));
-  })
-}
+  });
+};
 const ItemSeparator = () => {
   return <View style={styles.separator} />;
 };
@@ -85,41 +92,46 @@ const MessageList: React.FC<MessageListProps> = ({route, navigation}) => {
       keyExtractor={item => item.id} // Use a unique key for each item
       renderItem={({item}) => (
         <View>
-        <View style={styles.box}>
-          <View style={styles.boxItemLeft}>
-            <Image
-              source={{
-                uri:
-                  item.status === 'unread'
-                    ? 'https://img.icons8.com/ios-filled/50/228BE6/full-stop.png'
-                    : 'https://img.icons8.com/ios-glyphs/30/FFFFFF/full-stop.png',
-              }}
-              style={{marginRight: 5, width: 10, height: 10}}
-            />
-            <Image
-              source={{
-                uri: 'https://img.icons8.com/material-rounded/24/user-male-circle.png',
-              }}
-              style={{marginRight: 5, width: 20, height: 20}}
-            />
-            <Text>{item.id}</Text>
-          </View>
-          <View style={styles.boxItemRight}>
-            <Text style={{marginRight: 5}}>
-              {formatTimestamp(item.timestamp)}
-            </Text>
-            <IconButton
-              title=""
-              iconUrl="https://img.icons8.com/ios/50/forward--v1.png"
-              onPress={() => navigation.navigate('detail', {key: item})}
-            />
-          </View>
-        </View>
-        <View style={{marginLeft: 50, marginEnd: 20,}}>
-          <Text>
-            {item.content.length > 44 ? `${item.content.slice(0,44)}...` : item.content}
-          </Text>
-        </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('detail', {key: item})}>
+            <View style={styles.box}>
+              <View style={styles.boxItemLeft}>
+                <Image
+                  source={{
+                    uri:
+                      item.status === 'unread'
+                        ? 'https://img.icons8.com/ios-filled/50/228BE6/full-stop.png'
+                        : 'https://img.icons8.com/ios-glyphs/30/FFFFFF/full-stop.png',
+                  }}
+                  style={{marginRight: 5, width: 10, height: 10}}
+                />
+                <Image
+                  source={{
+                    uri: 'https://img.icons8.com/material-rounded/24/user-male-circle.png',
+                  }}
+                  style={{marginRight: 5, width: 20, height: 20}}
+                />
+                <Text>{item.id}</Text>
+              </View>
+              <View style={styles.boxItemRight}>
+                <Text style={{marginRight: 5}}>
+                  {formatTimestamp(item.timestamp)}
+                </Text>
+                <IconButton
+                  title=""
+                  iconUrl="https://img.icons8.com/ios/50/forward--v1.png"
+                  onPress={() => navigation.navigate('detail', {key: item})}
+                />
+              </View>
+            </View>
+            <View style={{marginLeft: 50, marginEnd: 20}}>
+              <Text>
+                {item.content.length > 44
+                  ? `${item.content.slice(0, 44)}...`
+                  : item.content}
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
       )}
       ItemSeparatorComponent={ItemSeparator}
@@ -164,8 +176,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
     width: '90%',
     marginLeft: 50,
-    marginTop: 10
-},
+    marginTop: 10,
+  },
 });
 
 export default MessageList;
